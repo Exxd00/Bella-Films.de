@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Elegant Light Palette - No Gold */
+  --cream: 30 20% 97%;
+  --cream-dark: 30 10% 93%;
+  --ivory: 30 15% 98%;
+  --charcoal: 0 0% 18%;
+  --charcoal-light: 0 0% 28%;
+  --warm-gray: 20 5% 50%;
+  --soft-taupe: 25 8% 42%;
+  --light-taupe: 25 6% 65%;
+
+  --background: var(--ivory);
+  --foreground: var(--charcoal);
+  --card: 0 0% 100%;
+  --card-foreground: var(--charcoal);
+  --popover: 0 0% 100%;
+  --popover-foreground: var(--charcoal);
+  --primary: var(--charcoal);
+  --primary-foreground: 0 0% 100%;
+  --secondary: var(--cream);
+  --secondary-foreground: var(--charcoal);
+  --muted: var(--cream-dark);
+  --muted-foreground: var(--warm-gray);
+  --accent: var(--cream);
+  --accent-foreground: var(--charcoal);
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 25 10% 90%;
+  --input: 25 10% 90%;
+  --ring: var(--charcoal);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background-color: hsl(var(--charcoal));
+    color: hsl(var(--ivory));
+  }
+}
+
+@layer components {
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--charcoal)) 0%, hsl(var(--warm-gray)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-accent {
+    color: hsl(var(--soft-taupe));
+  }
+
+  .elegant-border {
+    position: relative;
+  }
+
+  .elegant-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--charcoal) / 0.3), transparent);
+  }
+
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
+  }
+
+  .card-elegant {
+    @apply bg-white/80 backdrop-blur-sm border border-border/50 shadow-sm;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-elegant:hover {
+    @apply shadow-lg border-border;
+    transform: translateY(-4px);
+  }
+
+  .btn-elegant {
+    @apply relative overflow-hidden transition-all duration-500;
+  }
+
+  .btn-elegant::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-elegant:hover::before {
+    left: 100%;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* Elegant scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--cream));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--charcoal) / 0.15);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--charcoal) / 0.3);
+  }
+
+  /* Form styling */
+  .form-input-elegant {
+    @apply bg-white/60 border-border/30 focus:border-charcoal/50 focus:ring-1 focus:ring-charcoal/20 transition-all duration-300;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.012;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
